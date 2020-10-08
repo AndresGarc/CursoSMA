@@ -4,12 +4,21 @@ Importación de módulos
 
 //llamamos a express
 const express = require('express');
+const cors = require('cors'); //import
 const app = express(); //creamos la app de express
+
+require('dotenv').config(); //carga lo que haya en el archivo .env en un elemento process.env
+//EL ELEMENTO PROCESS SIEMPRE ESTA AHI
+
+//viene CORS -> solicitar recursos externos -> ovh/web a eps/api ???
+//esto le dice a express que utilizaremos un middelware para las rutas
+//app tendrá funciones de cors
+app.use(cors());
 
 //para abrirla
 //puerto en el que escucha , mensaje
-app.listen(3000, () => {
-    console.log('Servidor corriendo en el puerto ' + 3000);
+app.listen(process.env.PORT, () => {
+    console.log('Servidor corriendo en el puerto ' + process.env.PORT);
 });
 
 //PRIMER GET --> hace un get al recurs raiz, y responde con un mensaje
