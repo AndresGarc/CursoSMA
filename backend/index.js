@@ -18,7 +18,7 @@ dbConnection(); //llamada al objeto con la funcion ARRANCAR BASE DE DATOS
 //app tendrá funciones de cors
 app.use(cors());
 
-//para abrirla
+//para abrirlaaaaa
 //puerto en el que escucha , mensaje
 app.listen(process.env.PORT, () => {
     console.log('Servidor corriendo en el puerto ' + process.env.PORT);
