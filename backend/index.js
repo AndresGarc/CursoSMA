@@ -24,7 +24,7 @@ app.listen(process.env.PORT, () => {
     console.log('Servidor corriendo en el puerto ' + process.env.PORT);
 });
 
-//indica que cualquier cosa que venga de la ruta usuarios lo leera el archivo usuarios.js de la carpeta routes
+//indica que cualquier cosa que venga de la ruta: apu/usuarios leera el archivo usuarios.js de la carpeta routes
 app.use('/api/usuarios', require('./routes/usuarios'));
 
 
