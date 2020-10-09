@@ -24,9 +24,16 @@ app.listen(process.env.PORT, () => {
     console.log('Servidor corriendo en el puerto ' + process.env.PORT);
 });
 
+//indica que cualquier cosa que venga de la ruta api usuarios lo leera el archivo usuarios.js de la carpeta routes
+app.use('/api/usuarios', require('./routes/usuarios'));
+
+
+
+
 //PRIMER GET --> hace un get al recurs raiz, y responde con un mensaje
 //primer parametro -> ruta
 //segundo parametro ??
+/*
 app.get('/', (req, res) => {
     //le enviamos una respuesta en forma de json????
     //este mensaje es personalizable A PODER SER TODOS IGUALES
@@ -34,4 +41,4 @@ app.get('/', (req, res) => {
         ok: true,
         msg: 'Respuesta'
     });
-});
+}); */
