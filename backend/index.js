@@ -6,7 +6,7 @@ Importación de módulos
 const express = require('express');
 const cors = require('cors'); //import
 const { dbConnection } = require('./database/configdb');
-const { check } = require('express-validator'); //metodo check, comprobar existencias de campo, validaciones etc
+
 require('dotenv').config(); //carga lo que haya en el archivo .env en un elemento process.env
 //EL ELEMENTO PROCESS SIEMPRE ESTA AHI
 
