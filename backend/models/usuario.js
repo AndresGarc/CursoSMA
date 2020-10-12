@@ -1,6 +1,6 @@
 //archivo para recuperar y almacenar informacion de usuario
 //SCHEMA - estructura de los registros de una coleccion de una base de datos
-//MODELS - instancia que permite sobre una base de datos ejecutar acciones siguiendo el esquema
+//MODELS - instancia que permite ejecutar ,sobre una base de datos, acciones siguiendo el esquema
 
 const { Schema, model } = require('mongoose');
 
@@ -33,5 +33,5 @@ const UsuarioSchema = Schema({
     },
 }, { collection: 'usuarios' }); //que se almacena en usuarios
 
-//exportamos el modelo de datos creado a raiz del esquema
+//exportamos el modelo de datos creado a raiz del esquema, asi podemos utilizarlo 
 module.exports = model('Usuario', UsuarioSchema);
