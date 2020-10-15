@@ -3,6 +3,7 @@
 //require de modelos de datos
 const Usuario = require('../models/usuario'); //objeto usuarios
 const bcrypt = require('bcryptjs'); //libreria cifrado
+
 const getUsuarios = async(req, res) => {
 
     const usuarios = await Usuario.find({}); //find sin filtros / si quiero filtros: , y escribo los campos
