@@ -29,9 +29,20 @@ const UsuarioSchema = Schema({
     rol: {
         type: String,
         required: true,
-        default: 'Alumno'
+        default: 'ALUMNO'
     },
 }, { collection: 'usuarios' }); //que se almacena en usuarios
+
+
+//este metodo modifica el tojson para enviar los datos que queremos al frontend
+//sobreescritura de metodo
+// ...-> se guardan el resto de datos en ese objeto
+UsuarioSchema.method('toJSON', function() {
+    const { __v, _id, password, ...object } = this.toObject();
+    object.uid = _id; //renombro el campo _id a uid
+    return object;
+});
+
 
 //exportamos el modelo de datos creado a raiz del esquema, asi podemos utilizarlo 
 module.exports = model('Usuario', UsuarioSchema);

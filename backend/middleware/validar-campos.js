@@ -10,7 +10,7 @@ const validarCampos = (req, res = response, next) => {
         return res.status(400).json({
             ok: false,
             errores: erroresVal.mapped(),
-            cosas: req.body
+
         });
     }
     next();
