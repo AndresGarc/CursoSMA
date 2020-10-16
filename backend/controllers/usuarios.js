@@ -6,12 +6,32 @@ const bcrypt = require('bcryptjs'); //libreria cifrado
 
 const getUsuarios = async(req, res) => {
 
-    const usuarios = await Usuario.find({}); //find sin filtros / si quiero filtros: , y escribo los campos
+    const desde = Number(req.query.desde) || 0; //nos aseguramos el valor 
+    const regpp = 2; //prueba, restringuir 10 registros 
 
+    //skip -> salto x documentos para empezar a mostrar 
+    //limit -> documentos que te muestro a partir de ese punto
+    //const usuarios = await Usuario.find({}).skip(desde).limit(regpp); //find sin filtros / si quiero filtros: , y escribo los campos
+    //const total = await Usuario.countDocuments();
+
+    //eficiencia con las llamadas a la base de datos, llamadas PARALELAS
+    //no permite lanzar una secuencia de promesas
+    const [usuarios, total] = await Promise.all([
+        Usuario.find({}).skip(desde).limit(regpp),
+        Usuario.countDocuments()
+    ]);
+
+
+    //console.log(req.rol);
     res.json({
         ok: true,
         msg: 'getUsuarios',
-        usuarios: usuarios
+        usuarios: usuarios,
+        page: {
+            desde,
+            regpp,
+            total
+        }
     });
 }
 
@@ -32,7 +52,7 @@ const crearUsuarios = async(req, res) => {
         //te creo el nuevo objeto de usuario
         const newusu = new Usuario(req.body);
         newusu.password = cpassword;
-        // await newusu.save(); PA GUARDAR EL OBJETO EN LA BD
+        await newusu.save(); //PA GUARDAR EL OBJETO EN LA BD
 
         res.json({
             ok: true,

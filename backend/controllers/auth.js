@@ -4,7 +4,7 @@
 //imports
 const Usuario = require('../models/usuario'); //objeto usuarios
 const bcrypt = require('bcryptjs'); //libreria cifrado
-
+const { generarToken } = require('../helpers/jwt');
 
 const login = async(req, res) => {
 
@@ -29,10 +29,13 @@ const login = async(req, res) => {
             });
         }
 
+        //creamos el web token del usuario
+        const tk = await generarToken(usu._id, usu.rol);
+
         res.json({
             ok: true,
             msg: 'logeao bobo',
-            token: 'token'
+            token: tk
         });
 
     } catch (error) {
