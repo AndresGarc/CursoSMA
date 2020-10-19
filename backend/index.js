@@ -34,6 +34,7 @@ app.listen(process.env.PORT, () => {
 app.use('/api/usuarios', require('./routes/usuarios'));
 app.use('/api/login', require('./routes/auth'));
 app.use('/api/grupos', require('./routes/grupos'));
+app.use('/api/cursos', require('./routes/cursos'));
 
 
 

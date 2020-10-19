@@ -9,7 +9,7 @@ const getUsuarios = async(req, res) => {
 
     //puede venirnos el valor desde
     const desde = Number(req.query.desde) || 0; //nos aseguramos el valor 
-    const regpp = 2; //prueba, restringuir 10 registros 
+    const regpp = Number(process.env.DOCSPERPAGE); //restringuir X registros 
 
     //puede venirnos el valor id
     const id = req.query.id;
@@ -80,8 +80,9 @@ const crearUsuarios = async(req, res) => {
         const salt = bcrypt.genSaltSync(); //cadena aleatoria
         const cpassword = bcrypt.hashSync(password, salt); //cifrado contraseña
 
+        const { alta, ...object } = req.body;
         //te creo el nuevo objeto de usuario
-        const newusu = new Usuario(req.body);
+        const newusu = new Usuario(object);
         newusu.password = cpassword;
         await newusu.save(); //PA GUARDAR EL OBJETO EN LA BD
 
@@ -102,6 +103,7 @@ const crearUsuarios = async(req, res) => {
 
 }
 
+//no permite actualizar la contraseña
 const actualizarUsuario = async(req, res) => {
 
     const { email, password, ...object } = req.body; //el object se queda con el resto de datos
