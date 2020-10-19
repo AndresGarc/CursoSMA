@@ -2,37 +2,68 @@
 
 //require de modelos de datos
 const Usuario = require('../models/usuario'); //objeto usuarios
+const validator = require('validator');
 const bcrypt = require('bcryptjs'); //libreria cifrado
 
 const getUsuarios = async(req, res) => {
 
+    //puede venirnos el valor desde
     const desde = Number(req.query.desde) || 0; //nos aseguramos el valor 
     const regpp = 2; //prueba, restringuir 10 registros 
 
-    //skip -> salto x documentos para empezar a mostrar 
-    //limit -> documentos que te muestro a partir de ese punto
-    //const usuarios = await Usuario.find({}).skip(desde).limit(regpp); //find sin filtros / si quiero filtros: , y escribo los campos
-    //const total = await Usuario.countDocuments();
+    //puede venirnos el valor id
+    const id = req.query.id;
+    let usuarios, total;
 
-    //eficiencia con las llamadas a la base de datos, llamadas PARALELAS
-    //no permite lanzar una secuencia de promesas
-    const [usuarios, total] = await Promise.all([
-        Usuario.find({}).skip(desde).limit(regpp),
-        Usuario.countDocuments()
-    ]);
+    try {
+        //queremos 2 formas de hacer la busqueda - o con id o paginada
 
+        if (id) {
 
-    //console.log(req.rol);
-    res.json({
-        ok: true,
-        msg: 'getUsuarios',
-        usuarios: usuarios,
-        page: {
-            desde,
-            regpp,
-            total
+            if (!validator.isMongoId(id)) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: 'Id no válido'
+                });
+            }
+
+            [usuarios, total] = await Promise.all([
+                Usuario.findById(id).populate('grupo'),
+                Usuario.countDocuments()
+            ]);
+
+        } else {
+            //skip -> salto x documentos para empezar a mostrar 
+            //limit -> documentos que te muestro a partir de ese punto
+            //const usuarios = await Usuario.find({}).skip(desde).limit(regpp); //find sin filtros / si quiero filtros: , y escribo los campos
+            //const total = await Usuario.countDocuments();
+
+            //eficiencia con las llamadas a la base de datos, llamadas PARALELAS
+            //no permite lanzar una secuencia de promesas
+            [usuarios, total] = await Promise.all([
+                Usuario.find({}).skip(desde).limit(regpp),
+                Usuario.countDocuments()
+            ]);
         }
-    });
+
+        //console.log(req.rol);
+        res.json({
+            ok: true,
+            msg: 'getUsuarios',
+            usuarios: usuarios,
+            page: {
+                desde,
+                regpp,
+                total
+            }
+        });
+    } catch (error) {
+        return res.status(400).json({
+            ok: false,
+            msg: 'Error'
+        });
+    }
+
 }
 
 const crearUsuarios = async(req, res) => {

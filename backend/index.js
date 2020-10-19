@@ -33,6 +33,7 @@ app.listen(process.env.PORT, () => {
 //indica que cualquier cosa que venga de la ruta: apu/usuarios leera el archivo usuarios.js de la carpeta routes
 app.use('/api/usuarios', require('./routes/usuarios'));
 app.use('/api/login', require('./routes/auth'));
+app.use('/api/grupos', require('./routes/grupos'));
 
 
 

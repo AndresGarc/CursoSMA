@@ -31,6 +31,10 @@ const UsuarioSchema = Schema({
         required: true,
         default: 'ALUMNO'
     },
+    grupo: {
+        type: Schema.Types.ObjectId,
+        ref: 'Grupos'
+    },
 }, { collection: 'usuarios' }); //que se almacena en usuarios
 
 

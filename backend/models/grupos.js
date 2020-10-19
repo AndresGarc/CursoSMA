@@ -22,7 +22,7 @@ const GrupoSchema = Schema({
 //sobreescritura de metodo
 // ...-> se guardan el resto de datos en ese objeto
 
-UsuarioSchema.method('toJSON', function() {
+GrupoSchema.method('toJSON', function() {
     const { __v, _id, ...object } = this.toObject();
     object.uid = _id; //renombro el campo _id a uid
     return object;
