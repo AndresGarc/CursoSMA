@@ -22,7 +22,7 @@ router.post('/', [
     validarJWT,
     check('nombre', 'Nombre obligatorio').not().isEmpty().trim(),
     check('nombrecorto', 'Nombre corto obligatorio').not().isEmpty().trim(),
-    check('activo', 'Activo debe ser true/false').isBoolean(),
+    check('activo', 'Activo debe ser true/false').optional().isBoolean(),
     validarCampos
 ], crearCurso); //para comrpobar esto -> mirar controlador
 
@@ -30,7 +30,7 @@ router.put('/:id', [
     validarJWT,
     check('nombre', 'Nombre obligatorio').not().isEmpty().trim(),
     check('nombrecorto', 'Nombre corto obligatorio').not().isEmpty().trim(),
-    check('activo', 'Activo debe ser true/false').isBoolean(),
+    check('activo', 'Activo debe ser true/false').optional().isBoolean(),
     check('id', 'Id debe ser valido').isMongoId(),
     validarCampos
 ], actualizarCurso);
