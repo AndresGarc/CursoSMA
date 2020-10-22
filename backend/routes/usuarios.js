@@ -12,9 +12,10 @@ const router = Router(); //creamos un objeto tipo router
 
 //DECLARACION DE RUTAS
 router.get('/', [
+    validarJWT,
     check('id', 'El id tiene que ser valido').optional().isMongoId(),
     check('desde', 'El campo debe ser numérico').optional().isNumeric(),
-    validarJWT
+    validarCampos
 ], getUsuarios); //indicamos a la ruta / a partir de /api/usuarios se atienda mediante la funcion getUsuarios.
 
 //justo antes de llamar al manejador, validamos que existan los argumentos, esto no es logica de negocio, si no de seguridad, por ello se comprueba con la ruta

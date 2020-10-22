@@ -137,6 +137,7 @@ const borrarCurso = async(req, res) => {
     try {
 
         const existe = Curso.findById(uid);
+
         if (!existe) {
             return res.status(400).json({
                 ok: false,
@@ -144,7 +145,7 @@ const borrarCurso = async(req, res) => {
             });
         }
 
-        const borrado = Curso.findByIdAndRemove(uid);
+        const borrado = await Curso.findByIdAndRemove(uid);
 
         res.json({
             ok: true,
