@@ -7,6 +7,7 @@ import { FooterComponent } from './common/footer/footer.component';
 import { AuthModule } from './auth/auth.module';
 import { PagesModule } from './pages/pages.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
