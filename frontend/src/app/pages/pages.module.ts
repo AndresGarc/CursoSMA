@@ -16,6 +16,13 @@ import { RouterModule } from '@angular/router';
     SidebarComponent,
     NavbarComponent
   ],
+  exports: [
+    AdminLayoutComponent,
+    DashboardComponent,
+    UsuariosComponent,
+    SidebarComponent,
+    NavbarComponent
+  ],
   imports: [
     CommonModule,
     RouterModule
